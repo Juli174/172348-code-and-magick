@@ -1,7 +1,7 @@
 # Личный проект «Код и Магия» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Юлия Гладышева](https://up.htmlacademy.ru/javascript/5/user/172348).
-* Наставник: `Неизвестно`.
+* Наставник: `Игорь Алексеенко`.
 
 ---
 
