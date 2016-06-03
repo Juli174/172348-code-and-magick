@@ -378,6 +378,9 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      var game = new Game(document.querySelector('.demo'));
+      game.initializeLevelAndStart();
+      game.setGameStatus(window.Game.Verdict.INTRO);
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
