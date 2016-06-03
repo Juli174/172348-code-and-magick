@@ -19,9 +19,10 @@ function getMessage(a ,b){
 	} else if(typeof a == 'number'){
 		return "Я прыгнул на " + a * 100 + " сантиметров";
 	} else if(Object.prototype.toString.call(a) === '[object Array]'){
-		return a.reduce(function(sum, current){
+		var result = a.reduce(function(sum, current){
 			return sum + current;
 		}, 0);
+		return "Я прошел " + result + " шагов";
 	} else if((Object.prototype.toString.call(a) === '[object Array]') && (Object.prototype.toString.call(b) === '[object Array]')){
 		var length = sumMulti(a, b);
 		return "Я прошел " + length + "метров";
