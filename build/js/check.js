@@ -17,7 +17,7 @@ function getMessage(a ,b){
 			return "Я никуда не попал";
 		}
 	} else if(typeof a == 'number'){
-		return "Я прыгнул на" + a * 100 + "сантиметров";
+		return "Я прыгнул на " + a * 100 + " сантиметров";
 	} else if(Object.prototype.toString.call(a) === '[object Array]'){
 		return a.reduce(function(sum, current){
 			return sum + current;
