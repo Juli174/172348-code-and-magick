@@ -374,10 +374,15 @@
       }
     },
 
+    createMessageBox: function(){
+      this.ctx.fillRect();
+    },
+
     /**
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      this.createMessageBox();
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           console.log('you have won!');
