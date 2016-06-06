@@ -374,29 +374,45 @@
       }
     },
 
-    createMessageBox: function(){
-      this.ctx.fillRect();
+    createMessageBox: function(text){
+      this.ctx.fillStyle = 'white';
+      this.ctx.shadowOffsetX = 10;
+      this.ctx.shadowOffsetY = 10;
+      this.ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
+      this.ctx.fillRect(0, 40, 300, 150);
+      this.ctx.shadowOffsetX = 0;
+      this.ctx.shadowOffsetY = 0;
+      this.ctx.font = '16px PT Mono';
+      for(var i = 0; i < text.length; i++){
+        this.ctx.strokeText(text[i], 20, 60 + i * 20);
+      }
+      
     },
 
     /**
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
-      this.createMessageBox();
+      var text = [];
       switch (this.state.currentStatus) {
         case Verdict.WIN:
+          text = ['Сongratulations!', 'You have won!', 'Exellent!'];
           console.log('you have won!');
           break;
         case Verdict.FAIL:
+          text = ['It\'s a pitty!', 'You have failed!', 'Don\'t give up!'];
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
+          text = ['You are tired!', 'Game is on pause!', 'Have a rest'];
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
+          text = ['Hello!', 'Welcome to the game!', 'Press Space to start'];
           console.log('welcome to the game! Press Space to start');
           break;
       }
+      this.createMessageBox(text);
     },
 
     /**
