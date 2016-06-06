@@ -386,7 +386,7 @@
       for(var i = 0; i < text.length; i++){
         this.ctx.strokeText(text[i], 20, 60 + i * 20);
       }
-      
+
     },
 
     /**
