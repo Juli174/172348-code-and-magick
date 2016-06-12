@@ -1,6 +1,8 @@
 'use strict';
 
 (function() {
+  var browserCookies = require('browser-cookies');
+
   var formContainer = document.querySelector('.overlay-container');
   var formOpenButton = document.querySelector('.reviews-controls-new');
   var formCloseButton = document.querySelector('.review-form-close');
@@ -15,6 +17,40 @@
 
   if(reviewFieldName){
     reviewFieldName.style.display = 'none';
+  }
+
+  var name = browserCookies.get('userName');
+  if(name){
+    formFieldName.value = name;
+  }
+
+  var mark = browserCookies.get('mark');
+  if(mark){
+    setDafaultMark(mark);
+  }
+
+  function getExpireDate(){
+    var today = Date.now();
+    var todayDate = new Date();
+    var year = todayDate.getFullYear();
+    var current = new Date(year, 7, 9);
+    if(year.valueOf() - current.valueOf() < 0){
+      return current;
+    } else{
+      return new Date(year + 1, 7, 9);
+    }
+  }
+
+   var expireDate = getExpireDate();
+
+  function setDafaultMark(mark){
+    var marks = document.getElementsByName('review-mark');
+    for(var i = 0; i < marks.length; i++){
+      if(marks[i].checked){
+        marks[i].checked = false;
+      }
+    }
+    marks[mark - 1].checked = true;
   }
 
   function getMark(){
@@ -40,12 +76,14 @@
       reviewFieldsFn();
       reviewFieldName.style.display = 'none';
     }
+    return currentMark;
   }
 
   displayReviewLink();
 
   window.setMark = function(chosen){
-    displayReviewLink();
+    var mark = displayReviewLink();
+    browserCookies.set('mark', mark, {expires: expireDate});
   }
 
   formOpenButton.onclick = function(evt) {
@@ -75,6 +113,7 @@
     } else{
       linkFieldName.style.display = 'inline';
     }
+    browserCookies.set('userName', formFieldName.value, {expires: expireDate});
     reviewFieldsFn();
   };
 
