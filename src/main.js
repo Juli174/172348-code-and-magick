@@ -1,2 +1,3 @@
-require('./form.js');
-require('./game.js');
+require('./form');
+require('./game');
+require('./reviews');
