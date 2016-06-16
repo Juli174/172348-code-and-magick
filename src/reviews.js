@@ -10,6 +10,8 @@ var Filter = {
 
 var DEFAULT_FILTER = Filter.ALL;
 
+var LOAD_TIMEOUT = 10000;
+
 var reviewsFilter = document.querySelector('.reviews-filter');
 if(reviewsFilter){
 	reviewsFilter.classList.add('invisible');
@@ -37,8 +39,10 @@ function getReviewElement(data, container){
 	element.querySelector('.review-rating').textContent = data.rating;
 
 	var userPic = new Image();
+	var userPicLoadTimeout;
 
 	userPic.onload = function(evt){
+		clearTimeout(userPicLoadTimeout);
 		element.querySelector('.review-author').src = evt.target.src; 
 	}
 
@@ -47,6 +51,11 @@ function getReviewElement(data, container){
 	}
 
 	userPic.src = data.author.picture;
+
+	userPicLoadTimeout = setTimeout(function(){
+		userPic.src = '';
+		element.classList.add('review-load-failure');
+	}, LOAD_TIMEOUT);
 
 	container.appendChild(element);
 	return element;
@@ -59,6 +68,29 @@ function renderReviews(reviews){
 		getReviewElement(reviews[i], reviewsContainer);
 	}
 };
+
+var reviewsNotFoundTemplate = document.querySelector('#reviews-not-found');
+var reviewsNotFoundContainer = document.querySelector('.reviews-not-found');
+var clone;
+
+function filterResultEmpty(){
+	if('content' in reviewsNotFoundTemplate){
+		var clone = reviewsNotFoundTemplate.content.querySelector('.not-found');
+	} else{
+		var clone = reviewsNotFoundTemplate.querySelector('.not-found');
+	}
+
+	var element = clone.cloneNode(true);
+	reviewsNotFoundContainer.appendChild(element);
+}
+
+function checkFilter(filteredReviews){
+	if(filteredReviews.length == 0){
+		filterResultEmpty();
+	} else{
+		reviewsNotFoundContainer.innerHTML = '';
+	}
+}
 
 function getFilteredReviews(reviews, filter){
 	var reviewsToFilter = reviews.slice(0);
@@ -74,21 +106,25 @@ function getFilteredReviews(reviews, filter){
 			reviewsToFilter.sort(function(a, b){
 				return new Date(b.date) - new Date(a.date);
 			});
+			checkFilter(reviewsToFilter);
 			break;
 		case Filter.GOOD:
 			reviewsToFilter = reviewsToFilter.filter(function(review){
 				return review.rating >= 3;
 			});
+			checkFilter(reviewsToFilter);
 			break;
 		case Filter.BAD:
 			reviewsToFilter = reviewsToFilter.filter(function(review){
 				return review.rating < 3;
 			});
+			checkFilter(reviewsToFilter);
 			break;
 		case Filter.POPULAR:
 			reviewsToFilter.sort(function(a, b){
 				return b.review_usefulness - a.review_usefulness;
 			});
+			checkFilter(reviewsToFilter);
 			break;
 		default:
 			reviewsToFilter = reviews;
