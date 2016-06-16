@@ -1,3 +1,5 @@
+'use strict';
+
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 
 var Filter = {

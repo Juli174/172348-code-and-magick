@@ -15,63 +15,63 @@
   var reviewFields = document.querySelector('.review-fields');
   var submitBtn = document.querySelector('.review-submit');
 
-  if(reviewFieldName){
+  if (reviewFieldName){
     reviewFieldName.style.display = 'none';
   }
 
   var name = browserCookies.get('userName');
-  if(name){
+  if (name){
     formFieldName.value = name;
   }
 
   var mark = browserCookies.get('mark');
-  if(mark){
+  if (mark){
     setDafaultMark(mark);
   }
 
-  function getExpireDate(){
-    var today = Date.now();
+  function getExpireDate() {
+    // var today = Date.now();
     var todayDate = new Date();
     var year = todayDate.getFullYear();
     var current = new Date(year, 7, 9);
-    if(year.valueOf() - current.valueOf() < 0){
+    if (year.valueOf() - current.valueOf() < 0){
       return current;
     } else{
       return new Date(year + 1, 7, 9);
     }
   }
 
-   var expireDate = getExpireDate();
+  var expireDate = getExpireDate();
 
-  function setDafaultMark(mark){
+  function setDafaultMark(number) {
     var marks = document.getElementsByName('review-mark');
-    for(var i = 0; i < marks.length; i++){
-      if(marks[i].checked){
+    for (var i = 0; i < marks.length; i++){
+      if (marks[i].checked){
         marks[i].checked = false;
       }
     }
-    marks[mark - 1].checked = true;
+    marks[number - 1].checked = true;
   }
 
-  function getMark(){
+  function getMark() {
     var marks = document.getElementsByName('review-mark');
-    if(!marks) return;
-    var mark;
-    for(var i = 0; i < marks.length; i++){
-      if(marks[i].checked){
-        mark = marks[i].value;
+    if (!marks) return undefined;
+    var number;
+    for (var i = 0; i < marks.length; i++){
+      if (marks[i].checked){
+        number = marks[i].value;
       }
     }
-    return mark;
+    return number;
   }
 
-  function displayReviewLink(){
+  function displayReviewLink() {
     var currentMark = getMark();
-    if(currentMark < 3){
-      if(reviewFieldName){
+    if (currentMark < 3) {
+      if (reviewFieldName) {
         reviewFieldsFn();
         reviewFieldName.style.display = 'inline';
-      } 
+      }
     } else{
       reviewFieldsFn();
       reviewFieldName.style.display = 'none';
@@ -81,10 +81,10 @@
 
   displayReviewLink();
 
-  window.setMark = function(chosen){
-    var mark = displayReviewLink();
-    browserCookies.set('mark', mark, {expires: expireDate});
-  }
+  window.setMark = function() {
+    var number = displayReviewLink();
+    browserCookies.set('mark', number, {expires: expireDate});
+  };
 
   formOpenButton.onclick = function(evt) {
     evt.preventDefault();
@@ -96,9 +96,9 @@
     formContainer.classList.add('invisible');
   };
 
-  function reviewFieldsFn(){
-    var mark = getMark();
-    if(!formFieldName.value.length || (!formReviewText.value && mark < 3)){
+  function reviewFieldsFn() {
+    var number = getMark();
+    if (!formFieldName.value.length || (!formReviewText.value && number < 3)){
       submitBtn.setAttribute('disabled', true);
       reviewFields.style.display = 'inline-block';
     } else{
@@ -107,18 +107,18 @@
     }
   }
 
-  formFieldName.onkeyup = function(evt){
-    if(formFieldName.value.length > 0){
-        linkFieldName.style.display = 'none';
-    } else{
+  formFieldName.onkeyup = function() {
+    if (formFieldName.value.length > 0){
+      linkFieldName.style.display = 'none';
+    } else {
       linkFieldName.style.display = 'inline';
     }
     browserCookies.set('userName', formFieldName.value, {expires: expireDate});
     reviewFieldsFn();
   };
 
-  formReviewText.onkeyup = function(){
-    if(formReviewText.value.length > 0){
+  formReviewText.onkeyup = function() {
+    if(formReviewText.value.length > 0) {
       reviewFieldName.style.display = 'none';
     } else{
       reviewFieldName.style.display = 'inline';
