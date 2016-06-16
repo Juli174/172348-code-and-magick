@@ -149,8 +149,10 @@ function setFiltersEnabled(enabled){
 
 function getReviews(callback){
 	var xhr = new XMLHttpRequest();
+	var reviewsLoadTimeout;
 
 	xhr.onload = function(evt){
+		clearTimeout(reviewsLoadTimeout);
 		var loadedData = JSON.parse(evt.target.response);
 		reviewsSection.classList.remove('reviews-list-loading');
 		callback(loadedData);
@@ -160,6 +162,13 @@ function getReviews(callback){
 		reviewsSection.classList.remove('reviews-list-loading');
 		reviewsSection.classList.add('reviews-load-failure');
 	}
+
+	reviewsLoadTimeout = setTimeout(function(){
+		var loadedData = [];
+		callback(loadedData);
+		reviewsSection.classList.remove('reviews-list-loading');
+		reviewsSection.classList.add('reviews-load-failure');
+	}, LOAD_TIMEOUT);
 
 	xhr.open('GET', REVIEWS_LOAD_URL);
 	xhr.send();
