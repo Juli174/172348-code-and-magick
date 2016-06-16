@@ -15,26 +15,25 @@
   var reviewFields = document.querySelector('.review-fields');
   var submitBtn = document.querySelector('.review-submit');
 
-  if (reviewFieldName){
+  if (reviewFieldName) {
     reviewFieldName.style.display = 'none';
   }
 
   var name = browserCookies.get('userName');
-  if (name){
+  if (name) {
     formFieldName.value = name;
   }
 
   var mark = browserCookies.get('mark');
-  if (mark){
+  if (mark) {
     setDafaultMark(mark);
   }
 
   function getExpireDate() {
-    // var today = Date.now();
     var todayDate = new Date();
     var year = todayDate.getFullYear();
     var current = new Date(year, 7, 9);
-    if (year.valueOf() - current.valueOf() < 0){
+    if (year.valueOf() - current.valueOf() < 0) {
       return current;
     } else{
       return new Date(year + 1, 7, 9);
@@ -55,7 +54,7 @@
 
   function getMark() {
     var marks = document.getElementsByName('review-mark');
-    if (!marks) return undefined;
+    if (!marks) {return undefined;}
     var number;
     for (var i = 0; i < marks.length; i++){
       if (marks[i].checked){
