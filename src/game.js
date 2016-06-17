@@ -374,16 +374,16 @@
       }
     },
 
-    createMessageBox: function(text){
+    createMessageBox: function(text) {
       this.ctx.fillStyle = 'white';
       this.ctx.shadowOffsetX = 10;
       this.ctx.shadowOffsetY = 10;
-      this.ctx.shadowColor = "rgba(0, 0, 0, 0.7)";
+      this.ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
       this.ctx.fillRect(0, 40, 300, 150);
       this.ctx.shadowOffsetX = 0;
       this.ctx.shadowOffsetY = 0;
       this.ctx.font = '16px PT Mono';
-      for(var i = 0; i < text.length; i++){
+      for(var i = 0; i < text.length; i++) {
         this.ctx.strokeText(text[i], 20, 60 + i * 20);
       }
 
