@@ -65,11 +65,11 @@ function getReviewElement(data, container) {
   return element;
 }
 
-function renderReviews(reviews) {
+function renderReviews(filteredReviews) {
   reviewsContainer.innerHTML = '';
 
-  for(var i = 0; i < reviews.length; i++) {
-    getReviewElement(reviews[i], reviewsContainer);
+  for(var i = 0; i < filteredReviews.length; i++) {
+    getReviewElement(filteredReviews[i], reviewsContainer);
   }
 }
 
@@ -96,7 +96,7 @@ function checkFilter(filteredReviews) {
   }
 }
 
-function getFilteredReviews(reviews, filter) {
+function getFilteredReviews(filter) {
   var reviewsToFilter = reviews.slice(0);
 
   switch(filter) {
@@ -139,7 +139,7 @@ function getFilteredReviews(reviews, filter) {
 }
 
 function setFilterEnabled(filter) {
-  var filteredReviews = getFilteredReviews(reviews, filter);
+  var filteredReviews = getFilteredReviews(filter);
   renderReviews(filteredReviews);
 }
 
