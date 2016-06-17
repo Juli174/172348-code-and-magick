@@ -14,8 +14,6 @@ var DEFAULT_FILTER = Filter.ALL;
 
 var LOAD_TIMEOUT = 10000;
 
-var reviews = [];
-
 var reviewsFilter = document.querySelector('.reviews-filter');
 if(reviewsFilter) {
   reviewsFilter.classList.add('invisible');
@@ -47,7 +45,7 @@ function getReviewElement(data, container) {
 
   userPic.onload = function(evt) {
     clearTimeout(userPicLoadTimeout);
-    element.querySelector('.review-author').src = evt.target.src; 
+    element.querySelector('.review-author').src = evt.target.src;
   };
 
   userPic.onerror = function() {
@@ -106,6 +104,7 @@ function getFilteredReviews(reviews, filter) {
         if((days >= 0) && (days < 5)) {
           return true;
         }
+        return false;
       });
       reviewsToFilter.sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
