@@ -14,6 +14,8 @@ var DEFAULT_FILTER = Filter.ALL;
 
 var LOAD_TIMEOUT = 10000;
 
+var reviews = [];
+
 var reviewsFilter = document.querySelector('.reviews-filter');
 if(reviewsFilter) {
   reviewsFilter.classList.add('invisible');
