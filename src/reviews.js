@@ -3,11 +3,11 @@
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 
 var Filter = {
-	'ALL' : 'reviews-all',
-	'RECENT' : 'reviews-recent',
-	'GOOD' : 'reviews-good',
-	'BAD' : 'reviews-bad',
-	'POPULAR' : 'reviews-popular'
+'ALL': 'reviews-all',
+'RECENT': 'reviews-recent',
+'GOOD': 'reviews-good',
+'BAD': 'reviews-bad',
+'POPULAR': 'reviews-popular'
 };
 
 var DEFAULT_FILTER = Filter.ALL;
