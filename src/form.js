@@ -44,8 +44,8 @@
 
   function setDafaultMark(number) {
     var marks = document.getElementsByName('review-mark');
-    for (var i = 0; i < marks.length; i++){
-      if (marks[i].checked){
+    for (var i = 0; i < marks.length; i++) {
+      if (marks[i].checked) {
         marks[i].checked = false;
       }
     }
@@ -54,10 +54,10 @@
 
   function getMark() {
     var marks = document.getElementsByName('review-mark');
-    if (!marks) {return undefined;}
+    if (!marks) { return null; }
     var number;
-    for (var i = 0; i < marks.length; i++){
-      if (marks[i].checked){
+    for (var i = 0; i < marks.length; i++) {
+      if (marks[i].checked) {
         number = marks[i].value;
       }
     }
@@ -97,7 +97,7 @@
 
   function reviewFieldsFn() {
     var number = getMark();
-    if (!formFieldName.value.length || (!formReviewText.value && number < 3)){
+    if (!formFieldName.value.length || (!formReviewText.value && number < 3)) {
       submitBtn.setAttribute('disabled', true);
       reviewFields.style.display = 'inline-block';
     } else{
@@ -107,7 +107,7 @@
   }
 
   formFieldName.onkeyup = function() {
-    if (formFieldName.value.length > 0){
+    if (formFieldName.value.length > 0) {
       linkFieldName.style.display = 'none';
     } else {
       linkFieldName.style.display = 'inline';
