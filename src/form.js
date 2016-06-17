@@ -54,7 +54,9 @@
 
   function getMark() {
     var marks = document.getElementsByName('review-mark');
-    if (!marks) { return null; }
+    if (!marks) {
+      return null;
+    }
     var number;
     for (var i = 0; i < marks.length; i++) {
       if (marks[i].checked) {
