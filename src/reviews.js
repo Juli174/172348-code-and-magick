@@ -14,7 +14,13 @@ var DEFAULT_FILTER = Filter.ALL;
 
 var LOAD_TIMEOUT = 10000;
 
+var PAGE_SIZE = 3;
+
+var pageNumber = 0;
+
 var reviews = [];
+
+var filteredReviews = [];
 
 var reviewsFilter = document.querySelector('.reviews-filter');
 if(reviewsFilter) {
@@ -65,12 +71,21 @@ function getReviewElement(data, container) {
   return element;
 }
 
-function renderReviews(filteredReviews) {
-  reviewsContainer.innerHTML = '';
-
-  for(var i = 0; i < filteredReviews.length; i++) {
-    getReviewElement(filteredReviews[i], reviewsContainer);
+function renderReviews(page, replace) {
+  if(replace){
+    reviewsContainer.innerHTML = '';
   }
+
+  var from = page * PAGE_SIZE;
+  var to = from + PAGE_SIZE;
+
+  if (to >= filteredReviews.length) {
+    moreReviewsBtn.classList.add('invisible');
+  }
+
+  filteredReviews.slice(from, to).forEach(function(item, i){
+    getReviewElement(item, reviewsContainer);
+  });
 }
 
 var reviewsNotFoundTemplate = document.querySelector('#reviews-not-found');
@@ -88,7 +103,7 @@ function filterResultEmpty() {
   reviewsNotFoundContainer.appendChild(element);
 }
 
-function checkFilter(filteredReviews) {
+function checkFilter() {
   if (filteredReviews.length === 0) {
     filterResultEmpty();
   } else {
@@ -97,59 +112,72 @@ function checkFilter(filteredReviews) {
 }
 
 function getFilteredReviews(filter) {
-  var reviewsToFilter = reviews.slice(0);
+  filteredReviews = reviews.slice(0);
 
   switch(filter) {
     case Filter.RECENT:
-      reviewsToFilter = reviewsToFilter.filter(function(item) {
+      filteredReviews = filteredReviews.filter(function(item) {
         var days = (new Date() - new Date(item.date)) / 1000 / 60 / 60 / 24;
         if((days >= 0) && (days < 5)) {
           return true;
         }
         return false;
       });
-      reviewsToFilter.sort(function(a, b) {
+      filteredReviews.sort(function(a, b) {
         return new Date(b.date) - new Date(a.date);
       });
-      checkFilter(reviewsToFilter);
       break;
     case Filter.GOOD:
-      reviewsToFilter = reviewsToFilter.filter(function(review) {
+      filteredReviews = filteredReviews.filter(function(review) {
         return review.rating >= 3;
       });
-      checkFilter(reviewsToFilter);
       break;
     case Filter.BAD:
-      reviewsToFilter = reviewsToFilter.filter(function(review) {
+      filteredReviews = filteredReviews.filter(function(review) {
         return review.rating < 3;
       });
-      checkFilter(reviewsToFilter);
       break;
     case Filter.POPULAR:
-      reviewsToFilter.sort(function(a, b) {
+      filteredReviews.sort(function(a, b) {
         return b.review_usefulness - a.review_usefulness;
       });
-      checkFilter(reviewsToFilter);
       break;
     default:
-      reviewsToFilter = reviews;
+      filteredReviews = reviews;
       break;
   }
-  return reviewsToFilter;
+  checkFilter();
 }
 
+function isNextPageAvailable(page, pageSize) {
+  return page < Math.floor(filteredReviews.length / pageSize);
+}
+
+var moreReviewsBtn = document.querySelector('.reviews-controls-more');
+moreReviewsBtn.classList.remove('invisible');
+moreReviewsBtn.addEventListener('click', function() {
+  console.log(filteredReviews);
+  if (isNextPageAvailable(pageNumber, PAGE_SIZE)) {
+    pageNumber++;
+    renderReviews(pageNumber);
+  } else {
+    moreReviewsBtn.classList.add('invisible');
+  }
+});
+
 function setFilterEnabled(filter) {
-  var filteredReviews = getFilteredReviews(filter);
-  renderReviews(filteredReviews);
+  getFilteredReviews(filter);
+  pageNumber = 0;
+  moreReviewsBtn.classList.remove('invisible');
+  renderReviews(pageNumber, true);
 }
 
 function setFiltersEnabled(enabled) {
-  var filters = reviewsFilter.querySelectorAll('input');
-  for(var i = 0; i < filters.length; i++) {
-    filters[i].onchange = enabled ? function() {
-      setFilterEnabled(this.id);
-    } : null;
-  }
+  reviewsFilter.addEventListener('change', function(evt){
+    if(evt.target.classList.contains('review-filter')) {
+      setFilterEnabled(evt.target.id);
+    }
+  });
 }
 
 function getReviews(callback) {

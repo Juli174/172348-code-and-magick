@@ -38,17 +38,17 @@
     <h2 class="section-title reviews-title">Отзывы</h2>
 
     <form class="reviews-filter" action="index.html" method="get">
-      <input type="radio" name="reviews" id="reviews-all" value="reviews-all" checked><label for="reviews-all" class="reviews-filter-item"> Все</label>
-      <input type="radio" name="reviews" id="reviews-recent" value="reviews-recent"><label for="reviews-recent" class="reviews-filter-item"> Недавние</label>
-      <input type="radio" name="reviews" id="reviews-good" value="reviews-good"><label for="reviews-good" class="reviews-filter-item"> Хорошие</label>
-      <input type="radio" name="reviews" id="reviews-bad" value="reviews-bad"><label for="reviews-bad" class="reviews-filter-item"> Плохие</label>
-      <input type="radio" name="reviews" id="reviews-popular" value="reviews-popular"><label for="reviews-popular" class="reviews-filter-item"> Популярные</label>
+      <input type="radio" name="reviews" class="review-filter" id="reviews-all" value="reviews-all" checked><label for="reviews-all" class="reviews-filter-item"> Все</label>
+      <input type="radio" name="reviews" class="review-filter" id="reviews-recent" value="reviews-recent"><label for="reviews-recent" class="reviews-filter-item"> Недавние</label>
+      <input type="radio" name="reviews" class="review-filter" id="reviews-good" value="reviews-good"><label for="reviews-good" class="reviews-filter-item"> Хорошие</label>
+      <input type="radio" name="reviews" class="review-filter" id="reviews-bad" value="reviews-bad"><label for="reviews-bad" class="reviews-filter-item"> Плохие</label>
+      <input type="radio" name="reviews" class="review-filter" id="reviews-popular" value="reviews-popular"><label for="reviews-popular" class="reviews-filter-item"> Популярные</label>
     </form>
 
     <div class="reviews-list"></div>
 
     <div class="reviews-controls">
-      <span class="reviews-controls-item reviews-controls-more invisible">Ещё отзывы</span>
+      <span class="reviews-controls-item reviews-controls-more">Ещё отзывы</span>
       <span class="reviews-controls-item reviews-controls-new">+ Добавить свой</span>
     </div>
     <div class="reviews-not-found">
