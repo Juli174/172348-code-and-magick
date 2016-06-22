@@ -72,7 +72,7 @@ function getReviewElement(data, container) {
 }
 
 function renderReviews(page, replace) {
-  if(replace){
+  if(replace) {
     reviewsContainer.innerHTML = '';
   }
 
@@ -83,7 +83,7 @@ function renderReviews(page, replace) {
     moreReviewsBtn.classList.add('invisible');
   }
 
-  filteredReviews.slice(from, to).forEach(function(item, i){
+  filteredReviews.slice(from, to).forEach(function(item) {
     getReviewElement(item, reviewsContainer);
   });
 }
@@ -173,8 +173,11 @@ function setFilterEnabled(filter) {
 }
 
 function setFiltersEnabled(enabled) {
-  reviewsFilter.addEventListener('change', function(evt){
-    if(evt.target.classList.contains('review-filter')) {
+  if (!enabled) {
+    return;
+  }
+  reviewsFilter.addEventListener('change', function(evt) {
+    if (evt.target.classList.contains('review-filter')) {
       setFilterEnabled(evt.target.id);
     }
   });
