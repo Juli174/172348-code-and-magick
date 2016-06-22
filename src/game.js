@@ -744,7 +744,7 @@
   function setScrollEnabled() {
     var lastCall = Date.now();
 
-    window.addEventListener('scroll', function(evt) {
+    window.addEventListener('scroll', function() {
       if (Date.now() - lastCall >= THROTTLE_DELAY) {
         isDemoBlockPause();
         if (scrollDirection() && isVisibleHeaderCloud()) {
