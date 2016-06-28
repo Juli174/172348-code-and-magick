@@ -1,14 +1,10 @@
 'use strict';
 
-var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
+var Filter = require('./values/filters');
+var pageElement = require('./values/elements');
+var template = require('./methods/template');
 
-var Filter = {
-  'ALL': 'reviews-all',
-  'RECENT': 'reviews-recent',
-  'GOOD': 'reviews-good',
-  'BAD': 'reviews-bad',
-  'POPULAR': 'reviews-popular'
-};
+var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 
 var DEFAULT_FILTER = Filter.ALL;
 
@@ -22,26 +18,15 @@ var reviews = [];
 
 var filteredReviews = [];
 
-var reviewsFilter = document.querySelector('.reviews-filter');
-if(reviewsFilter) {
-  reviewsFilter.classList.add('invisible');
+if(pageElement.reviewsFilter) {
+  pageElement.reviewsFilter.classList.add('invisible');
 }
 
-var reviewsSection = document.querySelector('.reviews');
-if(reviewsSection) {
-  reviewsSection.classList.add('reviews-list-loading');
+if(pageElement.reviewsSection) {
+  pageElement.reviewsSection.classList.add('reviews-list-loading');
 }
 
-var reviewsContainer = document.querySelector('.reviews-list');
-var templateElement = document.querySelector('#review-template');
-var templateClone;
-
-
-if ('content' in templateElement) {
-  templateClone = templateElement.content.querySelector('.review');
-} else {
-  templateClone = templateElement.querySelector('.review');
-}
+var templateClone = template.getTemplateClone(pageElement.templateElement, 'review');
 
 function getReviewElement(data, container) {
   var element = templateClone.cloneNode(true);
@@ -73,7 +58,7 @@ function getReviewElement(data, container) {
 
 function renderReviews(page, replace) {
   if(replace) {
-    reviewsContainer.innerHTML = '';
+    pageElement.reviewsContainer.innerHTML = '';
   }
 
   var from = page * PAGE_SIZE;
@@ -84,30 +69,22 @@ function renderReviews(page, replace) {
   }
 
   filteredReviews.slice(from, to).forEach(function(item) {
-    getReviewElement(item, reviewsContainer);
+    getReviewElement(item, pageElement.reviewsContainer);
   });
 }
 
-var reviewsNotFoundTemplate = document.querySelector('#reviews-not-found');
-var reviewsNotFoundContainer = document.querySelector('.reviews-not-found');
-
 function filterResultEmpty() {
-  var clone;
-  if ('content' in reviewsNotFoundTemplate) {
-    clone = reviewsNotFoundTemplate.content.querySelector('.not-found');
-  } else {
-    clone = reviewsNotFoundTemplate.querySelector('.not-found');
-  }
+  var clone = template.getTemplateClone(pageElement.reviewsNotFoundTemplate, 'not-found');
 
   var element = clone.cloneNode(true);
-  reviewsNotFoundContainer.appendChild(element);
+  pageElement.reviewsNotFoundContainer.appendChild(element);
 }
 
 function checkFilter() {
   if (filteredReviews.length === 0) {
     filterResultEmpty();
   } else {
-    reviewsNotFoundContainer.innerHTML = '';
+    pageElement.reviewsNotFoundContainer.innerHTML = '';
   }
 }
 
@@ -176,7 +153,7 @@ function setFiltersEnabled(enabled) {
   if (!enabled) {
     return;
   }
-  reviewsFilter.addEventListener('change', function(evt) {
+  pageElement.reviewsFilter.addEventListener('change', function(evt) {
     if (evt.target.classList.contains('review-filter')) {
       setFilterEnabled(evt.target.id);
     }
@@ -190,20 +167,20 @@ function getReviews(callback) {
   xhr.onload = function(evt) {
     clearTimeout(reviewsLoadTimeout);
     var loadedData = JSON.parse(evt.target.response);
-    reviewsSection.classList.remove('reviews-list-loading');
+    pageElement.reviewsSection.classList.remove('reviews-list-loading');
     callback(loadedData);
   };
 
   xhr.onerror = function() {
-    reviewsSection.classList.remove('reviews-list-loading');
-    reviewsSection.classList.add('reviews-load-failure');
+    pageElement.reviewsSection.classList.remove('reviews-list-loading');
+    pageElement.reviewsSection.classList.add('reviews-load-failure');
   };
 
   reviewsLoadTimeout = setTimeout(function() {
     var loadedData = [];
     callback(loadedData);
-    reviewsSection.classList.remove('reviews-list-loading');
-    reviewsSection.classList.add('reviews-load-failure');
+    pageElement.reviewsSection.classList.remove('reviews-list-loading');
+    pageElement.reviewsSection.classList.add('reviews-load-failure');
   }, LOAD_TIMEOUT);
 
   xhr.open('GET', REVIEWS_LOAD_URL);
@@ -216,6 +193,6 @@ getReviews(function(loadedReviews) {
   setFilterEnabled(DEFAULT_FILTER);
 });
 
-if(reviewsFilter) {
-  reviewsFilter.classList.remove('invisible');
+if(pageElement.reviewsFilter) {
+  pageElement.reviewsFilter.classList.remove('invisible');
 }
