@@ -7,6 +7,8 @@ var listener = require('./methods/eventListener');
 var reviewElement = require('./methods/reviewElement');
 var renderReviews = require('./methods/renderReviews');
 
+var checkFilter = require('./methods/getFilteredReviews');
+
 
 var REVIEWS_LOAD_URL = '//o0.github.io/assets/json/reviews.json';
 
@@ -30,20 +32,20 @@ if(pageElement.reviewsSection) {
   pageElement.reviewsSection.classList.add('reviews-list-loading');
 }
 
-function filterResultEmpty()   {
-  var clone = template.getTemplateClone(pageElement.reviewsNotFoundTemplate, 'not-found');
+// function filterResultEmpty()   {
+//   var clone = template.getTemplateClone(pageElement.reviewsNotFoundTemplate, 'not-found');
 
-  var element = clone.cloneNode(true);
-  pageElement.reviewsNotFoundContainer.appendChild(element);
-}
+//   var element = clone.cloneNode(true);
+//   pageElement.reviewsNotFoundContainer.appendChild(element);
+// }
 
-function checkFilter() {
-  if (filteredReviews.length === 0) {
-    filterResultEmpty();
-  } else {
-    pageElement.reviewsNotFoundContainer.innerHTML = '';
-  }
-}
+// function checkFilter() {
+//   if (filteredReviews.length === 0) {
+//     filterResultEmpty();
+//   } else {
+//     pageElement.reviewsNotFoundContainer.innerHTML = '';
+//   }
+// }
 
 function getFilteredReviews(filter) {
   filteredReviews = reviews.slice(0);
@@ -80,7 +82,8 @@ function getFilteredReviews(filter) {
       filteredReviews = reviews;
       break;
   }
-  checkFilter();
+  checkFilter(filteredReviews);
+  return filteredReviews;
 }
 
 function isNextPageAvailable(page, pageSize) {
@@ -88,15 +91,9 @@ function isNextPageAvailable(page, pageSize) {
 }
 
 pageElement.moreReviewsBtn.classList.remove('invisible');
-pageElement.moreReviewsBtn.addEventListener('click', function() {
-  if (isNextPageAvailable(pageNumber, PAGE_SIZE)) {
-    pageNumber++;
-    renderReviews.renderReviews(pageNumber, false, filteredReviews);
-  } else {
-    pageElement.moreReviewsBtn.classList.add('invisible');
-  }
+pageElement.moreReviewsBtn.addEventListener('click', function(){
+  listener.showMoreReviews(pageNumber, filteredReviews);
 });
-//pageElement.moreReviewsBtn.addEventListener('click', listener.showMoreReviews(pageNumber, filteredReviews));
 
 function setFilterEnabled(filter) {
   getFilteredReviews(filter);
