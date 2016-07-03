@@ -2,8 +2,7 @@ var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 var reviewElement = require('./reviewElement');
 
-module.exports = {
-  renderReviews: function (page, replace, filteredReviews) {
+function renderReviews(page, replace, filteredReviews) {
     if(replace) {
       pageElement.reviewsContainer.innerHTML = '';
     }
@@ -19,4 +18,5 @@ module.exports = {
       reviewElement.getReviewElement(item, pageElement.reviewsContainer);
     });
   }
-}
+
+module.exports = renderReviews;

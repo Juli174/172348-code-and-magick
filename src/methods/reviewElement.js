@@ -1,8 +1,8 @@
 var constant = require('../values/constants');
 var pageElement = require('../values/elements');
-var template = require('./template');
+var getTemplateClone = require('./template');
 
-var templateClone = template.getTemplateClone(pageElement.templateElement, 'review');
+var templateClone = getTemplateClone(pageElement.templateElement, 'review');
 
 module.exports = {
   getReviewElement: function(data, container){
