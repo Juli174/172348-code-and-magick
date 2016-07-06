@@ -6,5 +6,6 @@ module.exports = {
 	reviewsNotFoundTemplate: document.querySelector('#reviews-not-found'),
 	reviewsNotFoundContainer: document.querySelector('.reviews-not-found'),
 	moreReviewsBtn: document.querySelector('.reviews-controls-more'),
-	moreReviewsBtn: document.querySelector('.reviews-controls-more')
+	moreReviewsBtn: document.querySelector('.reviews-controls-more'),
+	overlayGallery: document.querySelector('.overlay-gallery')
 }
