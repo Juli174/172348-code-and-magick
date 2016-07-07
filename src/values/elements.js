@@ -7,5 +7,11 @@ module.exports = {
 	reviewsNotFoundContainer: document.querySelector('.reviews-not-found'),
 	moreReviewsBtn: document.querySelector('.reviews-controls-more'),
 	moreReviewsBtn: document.querySelector('.reviews-controls-more'),
-	overlayGallery: document.querySelector('.overlay-gallery')
+
+
+	overlayGallery: document.querySelector('.overlay-gallery'),
+	photogalleryImgs: document.querySelectorAll('.photogallery-image'),
+	galleryControlLeft: document.querySelector('.overlay-gallery-control-left'),
+    galleryControlRight: document.querySelector('.overlay-gallery-control-right'),
+    galleryClose: document.querySelector('.overlay-gallery-close')
 }
