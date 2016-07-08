@@ -2,6 +2,8 @@ var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 var getReviewElement = require('./reviewElement');
 
+var renderedReviews = [];
+
 var Review = function(data, container) {
   var self = this;
   self.data = data;
@@ -16,7 +18,7 @@ var Review = function(data, container) {
 
   self.getElementNumber = function(element){
     var ind;
-    for (var i = 0; i < self.quizs[i].length; i++) {
+    for (var i = 0; i < self.quizs.length; i++) {
       if (self.quizs[i] == element) {
         ind = i;
       }
@@ -25,21 +27,16 @@ var Review = function(data, container) {
   };
 
   self.onClick = function(evt) {
-    // for (var i = 0; i < self.quizs.length; i++) {
-    //   if(self.quizs[i].classList.contains('review-quiz-answer-active') && self.quizs[i] == evt.target){
-    //     evt.target.classList.remove('review-quiz-answer-active');
-    //   } else {
-    //     self.quizs[i].classList.remove('review-quiz-answer-active');
-    //     evt.target.classList.add('review-quiz-answer-active');
-    //   }
-    // }
     var ind = self.getElementNumber(evt.target);
+    var currentEnabled = self.isPressedSelected(self.quizs[ind]);
     for (var i = 0; i < self.quizs.length; i++) {
       if (self.isPressedSelected(self.quizs[i])) {
         self.quizs[i].classList.remove('review-quiz-answer-active');
       }
     }
-
+    if (!currentEnabled) {
+      self.quizs[ind].classList.add('review-quiz-answer-active');
+    }
   };
 
   self.quizs = self.element.getElementsByClassName('review-quiz-answer');
@@ -51,12 +48,18 @@ var Review = function(data, container) {
     for(let i = 0; i < self.quizs.length; i++){
       self.quizs[i].removeEventListener('click', self.onClick);
     }
+    self.element.parentNode.removeChild(self.element);
   };
 };
 
 function renderReviews(page, replace, filteredReviews) {
-  if(replace) {
-    pageElement.reviewsContainer.innerHTML = '';
+  if(replace && renderedReviews.length) {
+    //pageElement.reviewsContainer.innerHTML = '';
+    renderedReviews.forEach(function(review){
+      review.remove();
+    });
+
+    renderedReviews = [];
   }
 
   var from = page * constant.PAGE_SIZE;
@@ -68,6 +71,7 @@ function renderReviews(page, replace, filteredReviews) {
 
   filteredReviews.slice(from, to).forEach(function(item) {
     var element = new Review(item, pageElement.reviewsContainer);
+    renderedReviews.push(element);
   });
 
 
