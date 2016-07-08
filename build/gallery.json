@@ -1,17 +1,14 @@
 [{
-    "name": "cat 1",
-    "path": "img/cats/1.jpg"
+    "path": "img/screenshots/1.png"
   }, {
-  	"name": "cat 2",
-    "path": "img/cats/2.jpg"
+    "path": "img/screenshots/2.png"
   }, {
-  	"name": "cat 3",
-    "path": "img/cats/3.jpg"
+    "path": "img/screenshots/3.png"
   }, {
-  	"name": "cat 4",
-    "path": "img/cats/4.jpg"
+    "path": "img/screenshots/4.png"
   }, {
-  	"name": "cat 5",
-    "path": "img/cats/5.jpg"
+    "path": "img/screenshots/5.png"
+  }, {
+    "path": "img/screenshots/6.png"
   }
 ]
