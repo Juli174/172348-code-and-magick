@@ -6,17 +6,17 @@ var renderedReviews = [];
 
 var Review = function(data, container) {
   var self = this;
-  self.data = data;
-  self.element = getReviewElement(data, container);
+  this.data = data;
+  this.element = getReviewElement(data, container);
 
-  self.isPressedSelected = function(element) {
+  this.isPressedSelected = function(element) {
     if(element.classList.contains('review-quiz-answer-active')){
       return true;
     }
     return false;
   };
 
-  self.getElementNumber = function(element){
+  this.getElementNumber = function(element){
     var ind;
     for (var i = 0; i < self.quizs.length; i++) {
       if (self.quizs[i] == element) {
@@ -26,7 +26,7 @@ var Review = function(data, container) {
     return ind;
   };
 
-  self.onClick = function(evt) {
+  this.onClick = function(evt) {
     var ind = self.getElementNumber(evt.target);
     var currentEnabled = self.isPressedSelected(self.quizs[ind]);
     for (var i = 0; i < self.quizs.length; i++) {
@@ -39,12 +39,12 @@ var Review = function(data, container) {
     }
   };
 
-  self.quizs = self.element.getElementsByClassName('review-quiz-answer');
+  this.quizs = self.element.getElementsByClassName('review-quiz-answer');
   for (let i = 0; i < self.quizs.length; i++){
     self.quizs[i].addEventListener('click', self.onClick);
   }
 
-  self.remove = function(){
+  this.remove = function(){
     for(let i = 0; i < self.quizs.length; i++){
       self.quizs[i].removeEventListener('click', self.onClick);
     }
@@ -54,7 +54,6 @@ var Review = function(data, container) {
 
 function renderReviews(page, replace, filteredReviews) {
   if(replace && renderedReviews.length) {
-    //pageElement.reviewsContainer.innerHTML = '';
     renderedReviews.forEach(function(review){
       review.remove();
     });
