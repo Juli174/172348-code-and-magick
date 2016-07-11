@@ -22,7 +22,7 @@ classModify.addClass(pageElement.reviewsSection, 'reviews-list-loading');
 
 classModify.removeClass(pageElement.moreReviewsBtn, 'invisible');
 
-pageElement.moreReviewsBtn.addEventListener('click', function(){
+pageElement.moreReviewsBtn.addEventListener('click', function() {
   pageNumber = showMoreReviews(pageNumber, filteredReviews);
 });
 

@@ -1,3 +1,5 @@
+'use strict';
+
 var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 

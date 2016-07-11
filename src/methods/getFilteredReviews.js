@@ -1,21 +1,23 @@
+'use strict';
+
 var pageElement = require('../values/elements');
 var getTemplateClone = require('./template');
 var Filter = require('../values/filters');
 
-function filterResultEmpty(filteredReviews)   {
+function filterResultEmpty() {
   var clone = getTemplateClone(pageElement.reviewsNotFoundTemplate, 'not-found');
 
   var element = clone.cloneNode(true);
   pageElement.reviewsNotFoundContainer.appendChild(element);
 }
 
-var checkFilter = function (filteredReviews) {
+var checkFilter = function(filteredReviews) {
   if (filteredReviews.length === 0) {
     filterResultEmpty();
   } else {
     pageElement.reviewsNotFoundContainer.innerHTML = '';
   }
-}
+};
 
 function getFilteredReviews(filter, reviews, filteredReviews) {
   filteredReviews = reviews.slice(0);
