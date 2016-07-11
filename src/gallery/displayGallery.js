@@ -1,7 +1,7 @@
 var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 
-function displayPicture(ind, gallery){
+function displayPicture(ind, gallery) {
   var picture = new Image();
   var pictureTimeout;
 
@@ -11,11 +11,11 @@ function displayPicture(ind, gallery){
     element.src = evt.target.src;
   };
 
-  picture.onerror = function(){
+  picture.onerror = function() {
     console.log('error');
   };
 
-  pictureTimeout = setTimeout(function(){
+  pictureTimeout = setTimeout(function() {
     picture.src = '';
   }, constant.LOAD_TIMEOUT);
 
