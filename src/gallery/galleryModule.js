@@ -1,3 +1,5 @@
+'use strict';
+
 var pageElement = require('../values/elements');
 var classModify = require('../methods/class');
 
@@ -19,7 +21,7 @@ var Gallery = function(pictureNumber, gallery) {
 
   this.total.innerHTML = gallery.length;
 
-  this.setCurrent = function(){
+  this.setCurrent = function() {
     self.current.innerHTML = pictureNumber + 1;
   };
 
@@ -32,13 +34,13 @@ var Gallery = function(pictureNumber, gallery) {
     self.remove();
   };
 
-  this.onCloseClick = function(){
+  this.onCloseClick = function() {
     self.hide();
   };
 
-  this.scrollLeft = function(){
-    if(pictureNumber != 0 && !pictureNumber) return;
-    if(pictureNumber == 0){
+  this.scrollLeft = function() {
+    if(pictureNumber !== 0 && !pictureNumber) { return; }
+    if(pictureNumber === 0) {
       pictureNumber = gallery.length - 1;
     } else {
       pictureNumber--;
@@ -47,9 +49,9 @@ var Gallery = function(pictureNumber, gallery) {
     self.setCurrent();
   };
 
-  this.scrollRight = function(){
-    if (pictureNumber != 0 && !pictureNumber) return;
-    if (pictureNumber == gallery.length - 1) {
+  this.scrollRight = function() {
+    if (pictureNumber !== 0 && !pictureNumber) { return; }
+    if (pictureNumber === gallery.length - 1) {
       pictureNumber = 0;
     } else {
       pictureNumber++;
@@ -58,11 +60,11 @@ var Gallery = function(pictureNumber, gallery) {
     self.setCurrent();
   };
 
-  this.EscEvent = function(evt){
-    if(evt.keyCode == KeyCode.ESC){
+  this.EscEvent = function(evt) {
+    if(evt.keyCode === KeyCode.ESC) {
       self.onCloseClick();
     }
-  }
+  };
 
   this.closeBtn.addEventListener('click', self.onCloseClick);
 
@@ -71,12 +73,12 @@ var Gallery = function(pictureNumber, gallery) {
   this.leftBtn.addEventListener('click', self.scrollLeft);
   this.rightBtn.addEventListener('click', self.scrollRight);
 
-  this.remove = function(){
+  this.remove = function() {
     self.closeBtn.removeEventListener('click', self.onCloseClick);
     self.leftBtn.removeEventListener('click', self.scrollLeft);
     self.rightBtn.removeEventListener('click', self.scrollRight);
     document.removeEventListener('keydown', self.EscEvent);
-  }
+  };
 };
 
 module.exports = Gallery;
