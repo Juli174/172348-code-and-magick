@@ -709,7 +709,7 @@
   var top = document.body.getBoundingClientRect().top;
   var demo = document.querySelector('.demo');
 
-  var STEP = 5;
+  var STEP = 3;
 
   var THROTTLE_DELAY = 100;
 
@@ -747,7 +747,13 @@
     window.addEventListener('scroll', function() {
       if (Date.now() - lastCall >= THROTTLE_DELAY) {
         isDemoBlockPause();
-        if (scrollDirection() && isVisibleHeaderCloud()) {
+        if (!isVisibleHeaderCloud()) return;
+        if (document.querySelector('header').getBoundingClientRect().top == 0) {
+          clouds.style.right = 0 + 'px';
+          clouds.style.top = 0 + 'px';
+          return;
+        }
+        if (scrollDirection()) {
           rightPosition += STEP;
           topPosition += STEP;
         } else {

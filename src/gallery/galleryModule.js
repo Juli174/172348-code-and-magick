@@ -25,7 +25,7 @@ var Gallery = function(pictureNumber, gallery) {
 
   this.setCurrent();
 
-  this.hide = function(){
+  this.hide = function() {
     if (!pageElement.overlayGallery.classList.contains('invisible')) {
       classModify.addClass(pageElement.overlayGallery, 'invisible');
     }

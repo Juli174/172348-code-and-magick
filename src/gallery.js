@@ -31,5 +31,4 @@ loadGallery(function(loadedGallery) {
   var element = pageElement.overlayGallery.querySelector('.overlay-gallery-preview');
   element.insertAdjacentHTML('afterbegin', '<img src="" class="overlay-gallery-image">');
   setImgClickEvents();
-  console.log(loadedGallery);
 });

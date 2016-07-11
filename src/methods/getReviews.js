@@ -24,8 +24,7 @@ function getReviews(callback) {
     pageElement.reviewsSection.classList.add('reviews-load-failure');
   }, constant.LOAD_TIMEOUT);
 
-  // xhr.open('GET', constant.REVIEWS_LOAD_URL);
-  xhr.open('GET', 'reviews.json');
+  xhr.open('GET', constant.REVIEWS_LOAD_URL);
   xhr.send();
 }
 
