@@ -57,9 +57,33 @@ function setImgClickEvents() {
   });
 }
 
+function checkHash() {
+  var hash = location.hash;
+  var re = /img\/(\S+)/;
+  if(hash && hash.match(re) && hash.match(re).length !== 0){
+    path = hash.slice(2);
+  } else {
+    return 0;
+  }
+  var image;
+
+  for (var i = 0; i < pageElement.photogalleryImgs.length; i++) {
+    //var imgPath = pageElement.photogalleryImgs[i].querySelector('img').src.slice(location.origin.length);
+    image = pageElement.photogalleryImgs[i].querySelector('img').src.slice(location.origin.length + 1);
+    if(path === image) {
+      pictureNumber = i;
+      setGalleryVisible();
+      displayGallery(pictureNumber, gallery, path);
+      galleryObj(pictureNumber, gallery);
+    }
+  }
+  
+}
+
 loadGallery(function(loadedGallery) {
   gallery = loadedGallery;
   var element = pageElement.overlayGallery.querySelector('.overlay-gallery-preview');
   element.insertAdjacentHTML('afterbegin', '<img src="" class="overlay-gallery-image">');
   setImgClickEvents();
+  checkHash();
 });

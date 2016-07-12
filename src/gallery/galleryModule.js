@@ -29,12 +29,10 @@ var Gallery = function(pictureNumber, gallery) {
   this.scrollLeft = this.scrollLeft.bind(this);
   this.scrollRight = this.scrollRight.bind(this);
 
-  this.closeBtn.addEventListener('click', this.hide.bind(this));
-
-  document.addEventListener('keydown', this.EscEvent.bind(this));
-
-  this.leftBtn.addEventListener('click', this.scrollLeft.bind(this));
-  this.rightBtn.addEventListener('click', this.scrollRight.bind(this));
+  this.closeBtn.addEventListener('click', this.hide);
+  document.addEventListener('keydown', this.EscEvent);
+  this.leftBtn.addEventListener('click', this.scrollLeft);
+  this.rightBtn.addEventListener('click', this.scrollRight);
 };
 
 Gallery.prototype.hide = function() {
