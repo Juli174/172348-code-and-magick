@@ -11,7 +11,7 @@ var pictureNumber;
 
 function setGalleryVisible() {
   if (pageElement.overlayGallery.classList.contains('invisible')) {
-      classModify.removeClass(pageElement.overlayGallery, 'invisible');
+    classModify.removeClass(pageElement.overlayGallery, 'invisible');
   }
 }
 
@@ -21,6 +21,7 @@ function getSelectedNumber(selected) {
       return i;
     }
   }
+  return 0;
 }
 
 function setImgClickEvents() {
@@ -29,7 +30,7 @@ function setImgClickEvents() {
     setGalleryVisible();
     pictureNumber = getSelectedNumber(evt.target);
     displayGallery(pictureNumber, gallery);
-    new Gallery(pictureNumber, gallery);
+    var element = new Gallery(pictureNumber, gallery);
   });
 }
 
