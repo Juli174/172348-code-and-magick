@@ -10,7 +10,7 @@ var Review = function(data, container) {
   this.element = getReviewElement(data, container);
 
   this.isPressedSelected = function(element) {
-    if(element.classList.contains('review-quiz-answer-active')){
+    if(element.classList.contains('review-quiz-answer-active')) {
       return true;
     }
     return false;
@@ -26,26 +26,26 @@ var Review = function(data, container) {
     return ind;
   };
 
+  this.quizs = this.element.querySelectorAll('.review-quiz > span');
+
   this.onClick = function(evt) {
     var ind = self.getElementNumber(evt.target);
     var currentEnabled = self.isPressedSelected(self.quizs[ind]);
-    for (var i = 0; i < self.quizs.length; i++) {
+    for(var i = 0; i < self.quizs.length; i++) {
       if (self.isPressedSelected(self.quizs[i])) {
         self.quizs[i].classList.remove('review-quiz-answer-active');
       }
     }
-    if (!currentEnabled) {
+    if(!currentEnabled) {
       self.quizs[ind].classList.add('review-quiz-answer-active');
     }
   };
 
-  this.quizs = self.element.getElementsByClassName('review-quiz-answer');
-  for (let i = 0; i < self.quizs.length; i++){
-    self.quizs[i].addEventListener('click', self.onClick);
-  }
+  var quiz = this.element.querySelector('.review-quiz');
+  quiz.addEventListener('click', this.onClick);
 
-  this.remove = function(){
-    for(let i = 0; i < self.quizs.length; i++){
+  this.remove = function() {
+    for(let i = 0; i < self.quizs.length; i++) {
       self.quizs[i].removeEventListener('click', self.onClick);
     }
     self.element.parentNode.removeChild(self.element);
@@ -57,7 +57,6 @@ function renderReviews(page, replace, filteredReviews) {
     renderedReviews.forEach(function(review){
       review.remove();
     });
-
     renderedReviews = [];
   }
 

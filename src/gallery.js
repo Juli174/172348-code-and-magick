@@ -5,7 +5,7 @@ var pageElement = require('./values/elements');
 
 var displayGallery = require('./gallery/displayGallery');
 var loadGallery = require('./gallery/getGalleryData');
-var Gallery = require('./gallery/galleryModule');
+var galleryObj = require('./gallery/galleryModule');
 
 var gallery = [];
 
@@ -32,7 +32,7 @@ function setImgClickEvents() {
     setGalleryVisible();
     pictureNumber = getSelectedNumber(evt.target);
     displayGallery(pictureNumber, gallery);
-    Gallery(pictureNumber, gallery);
+    galleryObj(pictureNumber, gallery);
   });
 }
 
