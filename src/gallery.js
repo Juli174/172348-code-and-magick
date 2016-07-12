@@ -15,15 +15,22 @@ function setGalleryVisible() {
   }
 }
 
-function setImgClickEvents() {
-  for (let i = 0; i < pageElement.photogalleryImgs.length; i++) {
-    pageElement.photogalleryImgs[i].addEventListener('click', function(evt) {
-      setGalleryVisible();
-      pictureNumber = i;
-      displayGallery(i, gallery);
-      new Gallery(pictureNumber, gallery);
-    });
+function getSelectedNumber(selected) {
+  for (var i = 0; i < pageElement.photogalleryImgs.length; i++) {
+    if(pageElement.photogalleryImgs[i] === selected.parentNode) {
+      return i;
+    }
   }
+}
+
+function setImgClickEvents() {
+  var photogallery = document.querySelector('.photogallery');
+  photogallery.addEventListener('click', function(evt) {
+    setGalleryVisible();
+    pictureNumber = getSelectedNumber(evt.target);
+    displayGallery(pictureNumber, gallery);
+    new Gallery(pictureNumber, gallery);
+  });
 }
 
 loadGallery(function(loadedGallery) {
