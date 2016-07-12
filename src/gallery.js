@@ -13,8 +13,6 @@ var pictureNumber;
 
 var path = '';
 
-var galleryObject;
-
 function setGalleryVisible() {
   if (pageElement.overlayGallery.classList.contains('invisible')) {
     classModify.removeClass(pageElement.overlayGallery, 'invisible');
@@ -37,11 +35,11 @@ function setHash(evt) {
     location.hash = hash;
     return hash;
   }
-  location.hash = "";
-  return "";
+  location.hash = '';
+  return '';
 }
 
-window.addEventListener('hashchange', function(evt) {
+window.addEventListener('hashchange', function() {
   if(location.hash === '') {
     classModify.addClass(pageElement.overlayGallery, 'invisible');
     return;
@@ -54,7 +52,7 @@ function setImgClickEvents() {
   var photogallery = document.querySelector('.photogallery');
   photogallery.addEventListener('click', function(evt) {
     pictureNumber = getSelectedNumber(evt.target);
-    galleryObject = galleryObj(pictureNumber, gallery);
+    galleryObj(pictureNumber, gallery);
     path = setHash(evt);
   });
 }

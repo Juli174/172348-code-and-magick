@@ -31,7 +31,7 @@ var Gallery = function(pictureNumber, gallery) {
     if (!pageElement.overlayGallery.classList.contains('invisible')) {
       classModify.addClass(pageElement.overlayGallery, 'invisible');
     }
-    location.hash = "";
+    location.hash = '';
     self.remove();
   };
 
