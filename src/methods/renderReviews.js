@@ -1,3 +1,5 @@
+'use strict';
+
 var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 var getReviewElement = require('./reviewElement');
@@ -16,10 +18,10 @@ var Review = function(data, container) {
     return false;
   };
 
-  this.getElementNumber = function(element){
+  this.getElementNumber = function(element) {
     var ind;
     for (var i = 0; i < self.quizs.length; i++) {
-      if (self.quizs[i] == element) {
+      if (self.quizs[i] === element) {
         ind = i;
       }
     }
@@ -52,7 +54,7 @@ var Review = function(data, container) {
 
 function renderReviews(page, replace, filteredReviews) {
   if(replace && renderedReviews.length) {
-    renderedReviews.forEach(function(review){
+    renderedReviews.forEach(function(review) {
       review.remove();
     });
     renderedReviews = [];
