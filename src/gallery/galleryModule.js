@@ -39,7 +39,9 @@ var Gallery = function(pictureNumber, gallery) {
   };
 
   this.scrollLeft = function() {
-    if(pictureNumber !== 0 && !pictureNumber) { return; }
+    if(pictureNumber !== 0 && !pictureNumber) { 
+      return; 
+    }
     if(pictureNumber === 0) {
       pictureNumber = gallery.length - 1;
     } else {
@@ -50,7 +52,9 @@ var Gallery = function(pictureNumber, gallery) {
   };
 
   this.scrollRight = function() {
-    if (pictureNumber !== 0 && !pictureNumber) { return; }
+    if (pictureNumber !== 0 && !pictureNumber) { 
+      return; 
+    }
     if (pictureNumber === gallery.length - 1) {
       pictureNumber = 0;
     } else {

@@ -747,7 +747,9 @@
     window.addEventListener('scroll', function() {
       if (Date.now() - lastCall >= THROTTLE_DELAY) {
         isDemoBlockPause();
-        if (!isVisibleHeaderCloud()) { return; }
+        if (!isVisibleHeaderCloud()) { 
+          return;
+        }
         if (document.querySelector('header').getBoundingClientRect().top === 0) {
           clouds.style.right = 0 + 'px';
           clouds.style.top = 0 + 'px';
