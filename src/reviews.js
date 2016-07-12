@@ -22,7 +22,7 @@ classModify.addClass(pageElement.reviewsSection, 'reviews-list-loading');
 
 classModify.removeClass(pageElement.moreReviewsBtn, 'invisible');
 
-pageElement.moreReviewsBtn.addEventListener('click', function(){
+pageElement.moreReviewsBtn.addEventListener('click', function() {
   pageNumber = showMoreReviews(pageNumber, filteredReviews);
 });
 
@@ -39,6 +39,7 @@ function setFiltersEnabled(enabled) {
   }
   pageElement.reviewsFilter.addEventListener('change', function(evt) {
     if (evt.target.classList.contains('review-filter')) {
+      localStorage.setItem('filter', evt.target.id);
       setFilterEnabled(evt.target.id);
     }
   });
@@ -47,7 +48,12 @@ function setFiltersEnabled(enabled) {
 getReviews(function(loadedReviews) {
   reviews = loadedReviews;
   setFiltersEnabled(true);
-  setFilterEnabled(DEFAULT_FILTER);
+  var filter = localStorage.getItem('filter');
+  if(!filter) {
+    filter = DEFAULT_FILTER;
+  }
+  document.getElementById(filter).checked = true;
+  setFilterEnabled(filter);
 });
 
 classModify.removeClass(pageElement.reviewsFilter, 'invisible');

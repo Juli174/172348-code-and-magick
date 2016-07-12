@@ -48,6 +48,8 @@ header {
   background: #2b5cfc;
   background: linear-gradient(180deg, #0000ff, #94c6fd);
   border-bottom: solid 8px #1cb34d;
+
+  overflow: hidden;
 }
 
 .header-clouds {

@@ -1,3 +1,5 @@
+'use strict';
+
 var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 
@@ -24,7 +26,8 @@ function getReviews(callback) {
     pageElement.reviewsSection.classList.add('reviews-load-failure');
   }, constant.LOAD_TIMEOUT);
 
-  xhr.open('GET', constant.REVIEWS_LOAD_URL);
+  //xhr.open('GET', constant.REVIEWS_LOAD_URL);
+  xhr.open('GET', 'reviews.json');
   xhr.send();
 }
 
