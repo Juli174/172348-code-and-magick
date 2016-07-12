@@ -31,11 +31,18 @@ var Gallery = function(pictureNumber, gallery) {
     if (!pageElement.overlayGallery.classList.contains('invisible')) {
       classModify.addClass(pageElement.overlayGallery, 'invisible');
     }
+    location.hash = "";
     self.remove();
   };
 
   this.onCloseClick = function() {
     self.hide();
+  };
+
+  this.getPath = function() {
+    var element = pageElement.photogalleryImgs[pictureNumber];
+    var path = element.querySelector('img').src;
+    return path;
   };
 
   this.scrollLeft = function() {
@@ -47,7 +54,8 @@ var Gallery = function(pictureNumber, gallery) {
     } else {
       pictureNumber--;
     }
-    displayGallery(pictureNumber, gallery);
+    var path = self.getPath();
+    displayGallery(pictureNumber, gallery, path);
     self.setCurrent();
   };
 
@@ -60,7 +68,8 @@ var Gallery = function(pictureNumber, gallery) {
     } else {
       pictureNumber++;
     }
-    displayGallery(pictureNumber, gallery);
+    var path = self.getPath();
+    displayGallery(pictureNumber, gallery, path);
     self.setCurrent();
   };
 

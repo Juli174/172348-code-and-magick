@@ -3,7 +3,7 @@
 var constant = require('../values/constants');
 var pageElement = require('../values/elements');
 
-function displayPicture(ind, gallery) {
+function displayPicture(ind, gallery, path) {
   var picture = new Image();
   var pictureTimeout;
 
@@ -21,7 +21,7 @@ function displayPicture(ind, gallery) {
     picture.src = '';
   }, constant.LOAD_TIMEOUT);
 
-  picture.src = gallery[ind].path;
+  picture.src = path;
 }
 
 module.exports = displayPicture;

@@ -11,6 +11,10 @@ var gallery = [];
 
 var pictureNumber;
 
+var path = '';
+
+var galleryObject;
+
 function setGalleryVisible() {
   if (pageElement.overlayGallery.classList.contains('invisible')) {
     classModify.removeClass(pageElement.overlayGallery, 'invisible');
@@ -26,13 +30,32 @@ function getSelectedNumber(selected) {
   return 0;
 }
 
+function setHash(evt) {
+  var hash = evt.target.src.slice(location.origin.length);
+  var re = /img\/(\S+)/;
+  if(hash.match(re) && hash.match(re).length !== 0) {
+    location.hash = hash;
+    return hash;
+  }
+  location.hash = "";
+  return "";
+}
+
+window.addEventListener('hashchange', function(evt) {
+  if(location.hash === '') {
+    classModify.addClass(pageElement.overlayGallery, 'invisible');
+    return;
+  }
+  setGalleryVisible();
+  displayGallery(pictureNumber, gallery, path);
+});
+
 function setImgClickEvents() {
   var photogallery = document.querySelector('.photogallery');
   photogallery.addEventListener('click', function(evt) {
-    setGalleryVisible();
     pictureNumber = getSelectedNumber(evt.target);
-    displayGallery(pictureNumber, gallery);
-    galleryObj(pictureNumber, gallery);
+    galleryObject = galleryObj(pictureNumber, gallery);
+    path = setHash(evt);
   });
 }
 
