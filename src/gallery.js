@@ -1,3 +1,5 @@
+'use strict';
+
 var classModify = require('./methods/class');
 var pageElement = require('./values/elements');
 
@@ -30,7 +32,7 @@ function setImgClickEvents() {
     setGalleryVisible();
     pictureNumber = getSelectedNumber(evt.target);
     displayGallery(pictureNumber, gallery);
-    var element = new Gallery(pictureNumber, gallery);
+    Gallery(pictureNumber, gallery);
   });
 }
 

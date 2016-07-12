@@ -85,4 +85,8 @@ var Gallery = function(pictureNumber, gallery) {
   };
 };
 
-module.exports = Gallery;
+function createGalleryObj(pictureNumber, gallery) {
+  return new Gallery(pictureNumber, gallery);
+}
+
+module.exports = createGalleryObj;
