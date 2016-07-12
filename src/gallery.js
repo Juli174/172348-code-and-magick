@@ -60,7 +60,7 @@ function setImgClickEvents() {
 function checkHash() {
   var hash = location.hash;
   var re = /img\/(\S+)/;
-  if(hash && hash.match(re) && hash.match(re).length !== 0){
+  if(hash && hash.match(re) && hash.match(re).length !== 0) {
     path = hash.slice(2);
   } else {
     return 0;
@@ -68,7 +68,6 @@ function checkHash() {
   var image;
 
   for (var i = 0; i < pageElement.photogalleryImgs.length; i++) {
-    //var imgPath = pageElement.photogalleryImgs[i].querySelector('img').src.slice(location.origin.length);
     image = pageElement.photogalleryImgs[i].querySelector('img').src.slice(location.origin.length + 1);
     if(path === image) {
       pictureNumber = i;
@@ -77,7 +76,7 @@ function checkHash() {
       galleryObj(pictureNumber, gallery);
     }
   }
-  
+  return 0;
 }
 
 loadGallery(function(loadedGallery) {

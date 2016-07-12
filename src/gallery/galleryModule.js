@@ -45,7 +45,7 @@ Gallery.prototype.hide = function() {
 
 Gallery.prototype.EscEvent = function(evt) {
   if(evt.keyCode === KeyCode.ESC) {
-      this.hide();
+    this.hide();
   }
 };
 
@@ -68,30 +68,30 @@ Gallery.prototype.setCurrent = function() {
 
 Gallery.prototype.scrollLeft = function() {
   if(this.pictureNumber !== 0 && !this.pictureNumber) {
-      return;
-    }
-    if(this.pictureNumber === 0) {
-      this.pictureNumber = this.gallery.length - 1;
-    } else {
-      this.pictureNumber--;
-    }
-    var path = this.getPath();
-    displayGallery(this.pictureNumber, this.gallery, path);
-    this.setCurrent();
+    return;
+  }
+  if(this.pictureNumber === 0) {
+    this.pictureNumber = this.gallery.length - 1;
+  } else {
+    this.pictureNumber--;
+  }
+  var path = this.getPath();
+  displayGallery(this.pictureNumber, this.gallery, path);
+  this.setCurrent();
 };
 
 Gallery.prototype.scrollRight = function() {
   if (this.pictureNumber !== 0 && !this.pictureNumber) {
-      return;
-    }
-    if (this.pictureNumber === this.gallery.length - 1) {
-      this.pictureNumber = 0;
-    } else {
-      this.pictureNumber++;
-    }
-    var path = this.getPath();
-    displayGallery(this.pictureNumber, this.gallery, path);
-    this.setCurrent();
+    return;
+  }
+  if (this.pictureNumber === this.gallery.length - 1) {
+    this.pictureNumber = 0;
+  } else {
+    this.pictureNumber++;
+  }
+  var path = this.getPath();
+  displayGallery(this.pictureNumber, this.gallery, path);
+  this.setCurrent();
 };
 
 function createGalleryObj(pictureNumber, gallery) {
